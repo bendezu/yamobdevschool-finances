@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/settings"
+        android:layout_width="@dimen/toolbar_button_size"
+        android:layout_height="@dimen/toolbar_button_size"
+        android:padding="@dimen/toolbar_button_padding"
+        android:layout_gravity="right"
+        android:src="@drawable/ic_settings_black_24dp"
+        android:background="@drawable/ripple_green"/>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|start"
+        android:paddingStart="@dimen/account_padding"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/primaryBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
+            android:textColor="@color/colorTextPrimary"
+            tools:text="1234,56 RUB"
+            android:textSize="@dimen/main_balance_size"/>
+
+        <TextView
+            android:id="@+id/alternateBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/colorTextPrimary"
+            tools:text="12,34 USD"
+            android:textSize="@dimen/alternate_balance_size"/>
+
+    </LinearLayout>
+
+</FrameLayout>
