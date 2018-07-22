@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/pref_key_show_decimals"
+        android:summaryOff="@string/pref_show_decimals_off"
+        android:summaryOn="@string/pref_show_decimals_on"
+        android:title="@string/pref_show_decimals"/>
+
+    <Preference
+        android:key="about"
+        android:layout="@layout/about_pref"/>
+
+</PreferenceScreen>
