@@ -10,5 +10,5 @@
     <dimen name="alternate_balance_size">20sp</dimen>
 
     <dimen name="toolbar_button_size">56dp</dimen>
-    <dimen name="toolbar_button_padding">12dp</dimen>
+    <dimen name="toolbar_button_padding">16dp</dimen>
 </resources>
