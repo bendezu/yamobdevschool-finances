@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity(), FeedFragmentClickListener, SettingsFra
         }
     }
 
-    override fun onStettingsClicked() {
+    override fun onSettingsClicked() {
         supportFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.enter_from_top, R.anim.exit_to_bottom, R.anim.enter_from_left, R.anim.exit_to_right)
                 .replace(R.id.main_container, SettingsFragment())

@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.account.*
 import kotlinx.android.synthetic.main.fragment_feed.*
 
 interface FeedFragmentClickListener {
-    fun onStettingsClicked()
+    fun onSettingsClicked()
 }
 
 class FeedFragment : Fragment(), FeedContract.View {
@@ -45,7 +45,7 @@ class FeedFragment : Fragment(), FeedContract.View {
             Snackbar.make(view, "Not implemented yet", Snackbar.LENGTH_LONG).show()
         }
         settings.setOnClickListener { view ->
-            listener?.onStettingsClicked()
+            listener?.onSettingsClicked()
         }
         super.onViewCreated(view, savedInstanceState)
     }
