@@ -6,6 +6,8 @@
 
     <dimen name="account_padding">16dp</dimen>
 
+    <dimen name="medium_text_size">20sp</dimen>
+
     <dimen name="main_balance_size">40sp</dimen>
     <dimen name="alternate_balance_size">20sp</dimen>
 

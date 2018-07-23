@@ -26,10 +26,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="16dp"
             android:text="@string/about"
             android:textColor="@color/colorTextPrimary"
-            android:textSize="20sp" />
+            android:textSize="@dimen/medium_text_size" />
 
     </LinearLayout>
 
