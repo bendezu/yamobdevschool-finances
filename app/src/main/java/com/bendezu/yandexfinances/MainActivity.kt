@@ -1,35 +1,39 @@
 package com.bendezu.yandexfinances
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
-import kotlinx.android.synthetic.main.activity_main.*
+import com.bendezu.yandexfinances.about.AboutFragment
+import com.bendezu.yandexfinances.about.AboutFragmentClickListener
+import com.bendezu.yandexfinances.accountFeed.FeedFragment
+import com.bendezu.yandexfinances.accountFeed.FeedFragmentClickListener
+import com.bendezu.yandexfinances.settings.SettingsFragment
+import com.bendezu.yandexfinances.settings.SettingsFragmentClickListener
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), FeedFragmentClickListener, SettingsFragmentClickListener, AboutFragmentClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_scrolling)
-        setSupportActionBar(toolbar)
+        setContentView(R.layout.activity_main)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction().add(R.id.main_container, FeedFragment()).commit()
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
+    override fun onSettingsClicked() {
+        supportFragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.enter_from_top, R.anim.exit_to_bottom, R.anim.enter_from_left, R.anim.exit_to_right)
+                .replace(R.id.main_container, SettingsFragment())
+                .addToBackStack(null).commit()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
+    override fun onAboutClicked() {
+        supportFragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
+                .replace(R.id.main_container, AboutFragment())
+                .addToBackStack(null).commit()
+    }
+    override fun onBackClicked() {
+        supportFragmentManager.popBackStack()
     }
 }
