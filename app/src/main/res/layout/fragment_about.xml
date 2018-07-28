@@ -5,32 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/pref_item_height"
+        android:layout_height="@dimen/toolbar_height"
         android:background="@color/colorPrimary"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="@dimen/toolbar_button_size"
-            android:layout_height="@dimen/toolbar_button_size"
-            android:background="@drawable/ripple_green"
-            android:padding="@dimen/toolbar_button_padding"
-            android:src="@drawable/ic_arrow_back_black_24dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/about"
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="@dimen/medium_text_size" />
-
-    </LinearLayout>
+        app:title="@string/about"
+        app:titleTextColor="@color/colorTextPrimary"
+        app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+        android:elevation="@dimen/toolbar_elevation"/>
 
     <ImageView
         android:layout_width="100dp"
@@ -39,7 +22,7 @@
         app:layout_constraintBottom_toTopOf="@+id/tv_app_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
         android:id="@+id/tv_app_name"

@@ -2,12 +2,14 @@ package com.bendezu.yandexfinances.settings
 
 import android.content.Context
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bendezu.yandexfinances.R
+import com.bendezu.yandexfinances.SpinnerIconAdapter
+import com.bendezu.yandexfinances.util.currencies
+import com.bendezu.yandexfinances.util.currencyIds
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 interface SettingsFragmentClickListener {
@@ -35,10 +37,12 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         about.setOnClickListener{ listener?.onAboutClicked() }
-        back.setOnClickListener { listener?.onBackClicked() }
-        showDecimals.setOnClickListener{
-            Snackbar.make(it, "Not implemented yet", Snackbar.LENGTH_LONG).show()
-        }
+        toolbar.setNavigationOnClickListener { listener?.onBackClicked() }
+
+        val inflater = activity?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        primaryCurrencySpinner.adapter = SpinnerIconAdapter(inflater, currencies, currencyIds)
+        alternateCurrencySpinner.adapter = SpinnerIconAdapter(inflater, currencies, currencyIds)
+
         super.onViewCreated(view, savedInstanceState)
     }
 

@@ -5,17 +5,10 @@ import com.bendezu.yandexfinances.model.ExchangeRepository
 import com.bendezu.yandexfinances.model.getAlternateCurrency
 import com.bendezu.yandexfinances.model.getPrimaryCurrency
 
-class FeedFragmentPresenter: FeedContract.Presenter {
+class FeedFragmentPresenter(var view: FeedContract.View?) : FeedContract.Presenter {
 
-    var view: FeedContract.View?
-    private val accountRepository: AccountRepository
-    private val exchangeRepository: ExchangeRepository
-
-    constructor(view: FeedContract.View) {
-        this.view = view
-        accountRepository = AccountRepository()
-        exchangeRepository = ExchangeRepository()
-    }
+    private val accountRepository: AccountRepository = AccountRepository()
+    private val exchangeRepository: ExchangeRepository = ExchangeRepository()
 
     override fun detachView() {
         view = null

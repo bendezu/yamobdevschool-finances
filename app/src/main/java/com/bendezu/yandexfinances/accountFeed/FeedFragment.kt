@@ -2,18 +2,23 @@ package com.bendezu.yandexfinances.accountFeed
 
 import android.content.Context
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bendezu.yandexfinances.R
+import com.bendezu.yandexfinances.addRecord.AddRecordFragment
+import com.bendezu.yandexfinances.util.RevealAnimationSetting
 import kotlinx.android.synthetic.main.account.*
 import kotlinx.android.synthetic.main.fragment_feed.*
+import kotlin.math.roundToInt
 
 interface FeedFragmentClickListener {
     fun onSettingsClicked()
+    fun onAddRecordClicked()
 }
+
+const val FEED_FRAGMENT_TAG = "FeedFragment"
 
 class FeedFragment : Fragment(), FeedContract.View {
 
@@ -41,10 +46,21 @@ class FeedFragment : Fragment(), FeedContract.View {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         presenter.setupUI()
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Not implemented yet", Snackbar.LENGTH_LONG).show()
+        fab.setOnClickListener { v ->
+            val centreX = (fab.x + fab.width  / 2).roundToInt()
+            val centreY = (fab.y + fab.height / 2).roundToInt()
+            val bundle = Bundle()
+            bundle.putParcelable("anim", RevealAnimationSetting(centreX, centreY,root.width, root.height))
+            val fragment = AddRecordFragment()
+            fragment.arguments = bundle
+
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(0,0, R.anim.enter_from_top, R.anim.exit_to_bottom)
+                    .replace(R.id.container, fragment)
+                    .addToBackStack(null).commit()
+            listener?.onAddRecordClicked()
         }
-        settings.setOnClickListener { view ->
+        settings.setOnClickListener { v ->
             listener?.onSettingsClicked()
         }
         super.onViewCreated(view, savedInstanceState)

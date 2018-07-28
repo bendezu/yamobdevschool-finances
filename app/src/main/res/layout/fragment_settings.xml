@@ -3,32 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/colorPrimaryDark">
 
-    <LinearLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/pref_item_height"
-        android:orientation="horizontal"
-        android:background="@color/colorPrimary">
-
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="@dimen/toolbar_button_size"
-            android:layout_height="@dimen/toolbar_button_size"
-            android:padding="@dimen/toolbar_button_padding"
-            android:src="@drawable/ic_arrow_back_black_24dp"
-            android:background="@drawable/ripple_green"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/settings"
-            android:textSize="@dimen/medium_text_size"
-            android:textColor="@color/colorTextPrimary"
-            android:layout_gravity="center_vertical"/>
-
-    </LinearLayout>
+        android:layout_height="@dimen/toolbar_height"
+        android:background="@color/colorPrimary"
+        app:title="@string/settings"
+        app:titleTextColor="@color/colorTextPrimary"
+        app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+        android:elevation="@dimen/toolbar_elevation"/>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -37,13 +25,37 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/pref_show_decimals"
+            android:text="@string/primary_currency"
             android:textSize="@dimen/medium_text_size"
+            android:textColor="@color/colorTextPrimary"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="16dp"/>
 
-        <android.support.v7.widget.AppCompatCheckBox
-            android:id="@+id/showDecimals"
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/primaryCurrencySpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="16dp"
+            android:buttonTint="@color/colorAccentDark"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/pref_item_height">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/alternate_currency"
+            android:textSize="@dimen/medium_text_size"
+            android:textColor="@color/colorTextPrimary"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"/>
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/alternateCurrencySpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|end"
@@ -56,13 +68,14 @@
         android:id="@+id/about"
         android:layout_width="match_parent"
         android:layout_height="@dimen/pref_item_height"
-        android:background="@drawable/ripple_green_rect">
+        android:background="@drawable/ripple_green_primary_dark">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/about"
             android:textSize="@dimen/medium_text_size"
+            android:textColor="@color/colorTextPrimary"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="16dp"/>
 

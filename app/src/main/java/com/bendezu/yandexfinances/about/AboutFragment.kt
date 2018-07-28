@@ -32,7 +32,7 @@ class AboutFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        back.setOnClickListener { listener?.onBackClicked() }
+        toolbar.setNavigationOnClickListener{ listener?.onBackClicked() }
         super.onViewCreated(view, savedInstanceState)
     }
 

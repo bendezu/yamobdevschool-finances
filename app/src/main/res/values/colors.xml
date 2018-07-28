@@ -9,4 +9,6 @@
 
     <color name="colorTextPrimary">#FFFFFF</color>
     <color name="colorTextAccent">#004c3f</color>
+
+    <color name="white">#FFFFFF</color>
 </resources>
