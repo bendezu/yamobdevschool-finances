@@ -8,12 +8,12 @@ enum class RecordType {
     INCOME
 }
 
-class Record(val type: RecordType, val amount: BigDecimal, val currency: String)
+class Record(val account: Int, val type: RecordType, val amount: BigDecimal, val currency: String)
 
-fun calculateBalanceInUsd(records: List<Record>): BigDecimal {
+fun calculateBalanceInUsd(records: List<Record>, account: Int): BigDecimal {
     val repository = ExchangeRepository()
     var sum = BigDecimal(0)
-    records.forEach{
+    records.filter { it.account == account }.forEach {
         val value = it.amount.divide(repository.getRateCoef(it.currency), MathContext.DECIMAL128)
         if (it.type == RecordType.INCOME)
             sum += value

@@ -3,13 +3,15 @@ package com.bendezu.yandexfinances.accountFeed
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import com.bendezu.yandexfinances.R
 import com.bendezu.yandexfinances.addRecord.AddRecordFragment
 import com.bendezu.yandexfinances.util.RevealAnimationSetting
-import kotlinx.android.synthetic.main.account.*
 import kotlinx.android.synthetic.main.fragment_feed.*
 import kotlin.math.roundToInt
 
@@ -23,7 +25,10 @@ const val FEED_FRAGMENT_TAG = "FeedFragment"
 class FeedFragment : Fragment(), FeedContract.View {
 
     private var listener: FeedFragmentClickListener? = null
-    private lateinit var presenter: FeedContract.Presenter
+    lateinit var presenter: FeedContract.Presenter
+
+    private var mainBalance: TextView? = null
+    private var secondaryBalance: TextView? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -46,6 +51,15 @@ class FeedFragment : Fragment(), FeedContract.View {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         presenter.setupUI()
+        accountViewPager.adapter = AccountPagerAdapter(this)
+        val pageListener = object : ViewPager.SimpleOnPageChangeListener() {
+            override fun onPageSelected(position: Int) {
+                Toast.makeText(context, "update list for account " + position, Toast.LENGTH_SHORT).show()
+            }
+        }
+        accountViewPager.addOnPageChangeListener(pageListener)
+        accountViewPager.post(Runnable { pageListener.onPageSelected(accountViewPager.currentItem) })
+
         fab.setOnClickListener { v ->
             val centreX = (fab.x + fab.width  / 2).roundToInt()
             val centreY = (fab.y + fab.height / 2).roundToInt()
@@ -60,17 +74,20 @@ class FeedFragment : Fragment(), FeedContract.View {
                     .addToBackStack(null).commit()
             listener?.onAddRecordClicked()
         }
-        settings.setOnClickListener { v ->
-            listener?.onSettingsClicked()
-        }
+        settings.setOnClickListener { v -> listener?.onSettingsClicked() }
+
         super.onViewCreated(view, savedInstanceState)
     }
 
     override fun setPrimaryBalance(balance: String) {
-        primaryBalance.text = balance
+        mainBalance?.text = balance
     }
     override fun setAlternateBalance(balance: String) {
-        alternateBalance.text = balance
+        secondaryBalance?.text = balance
+    }
+
+    override fun showAccountDiagram(account: Int) {
+        Toast.makeText(context, "Diagram $account", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDetach() {

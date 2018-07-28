@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/account_padding"
+    tools:background="@color/colorPrimary">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/accountTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Debite Card"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="20sp"
+            android:textColor="@color/colorTextPrimary"/>
+
+        <TextView
+            android:id="@+id/primaryBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
+            android:textSize="@dimen/main_balance_size"
+            android:textColor="@color/colorTextPrimary"
+            tools:text="12345.56 RUB"/>
+
+        <TextView
+            android:id="@+id/alternateBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="sans-serif-light"
+            android:textSize="@dimen/alternate_balance_size"
+            android:textColor="@color/colorTextPrimary"
+            tools:text="123.56 USD"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/diagramButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="32dp"
+        android:src="@drawable/ic_diagram"
+        android:layout_gravity="center_vertical|end"
+        android:background="@drawable/ripple_green"/>
+
+</FrameLayout>
