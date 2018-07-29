@@ -1,5 +1,7 @@
 package com.bendezu.yandexfinances.addRecord
 
+import com.bendezu.yandexfinances.model.Currency
+
 interface AddRecordContract {
     interface View {
         fun updateRecordInfo(info: String)
@@ -10,6 +12,6 @@ interface AddRecordContract {
         fun detachView()
         fun onAmountChanged(amount: String)
         fun onRecordTypeChanged(isChecked: Boolean)
-        fun onCurrencyChanged(currency: String)
+        fun onCurrencyChanged(currency: Currency)
     }
 }

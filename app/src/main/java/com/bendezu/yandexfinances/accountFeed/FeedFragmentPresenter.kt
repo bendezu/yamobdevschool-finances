@@ -1,7 +1,6 @@
 package com.bendezu.yandexfinances.accountFeed
 
 import com.bendezu.yandexfinances.model.*
-import com.bendezu.yandexfinances.util.records
 
 class FeedFragmentPresenter(var view: FeedContract.View?) : FeedContract.Presenter {
 
@@ -22,8 +21,8 @@ class FeedFragmentPresenter(var view: FeedContract.View?) : FeedContract.Present
     override fun calculateAccountBalance(account: Int) {
         val balance = calculateBalanceInUsd(records.asList(), account)
         val rateKoef = exchangeRepository.getRateCoef(getPrimaryCurrency())
-        view?.setPrimaryBalance(balance.multiply(rateKoef).toPlainString() + " " + getPrimaryCurrency())
-        view?.setAlternateBalance(balance.toPlainString() + " " + getAlternateCurrency())
+        view?.setPrimaryBalance(balance.multiply(rateKoef).toPlainString() + " " + getPrimaryCurrency().symbol)
+        view?.setAlternateBalance(balance.toPlainString() + " " + getAlternateCurrency().symbol)
     }
 
     override fun onDiagramClicked(account: Int) {

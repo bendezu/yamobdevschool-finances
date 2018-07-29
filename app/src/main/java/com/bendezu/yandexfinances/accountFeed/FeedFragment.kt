@@ -9,11 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import com.bendezu.yandexfinances.DiagramFragment
 import com.bendezu.yandexfinances.R
 import com.bendezu.yandexfinances.addRecord.AddRecordFragment
-import com.bendezu.yandexfinances.util.RevealAnimationSetting
 import kotlinx.android.synthetic.main.fragment_feed.*
-import kotlin.math.roundToInt
 
 interface FeedFragmentClickListener {
     fun onSettingsClicked()
@@ -58,19 +57,12 @@ class FeedFragment : Fragment(), FeedContract.View {
             }
         }
         accountViewPager.addOnPageChangeListener(pageListener)
-        accountViewPager.post(Runnable { pageListener.onPageSelected(accountViewPager.currentItem) })
+        accountViewPager.post { pageListener.onPageSelected(accountViewPager.currentItem) }
 
         fab.setOnClickListener { v ->
-            val centreX = (fab.x + fab.width  / 2).roundToInt()
-            val centreY = (fab.y + fab.height / 2).roundToInt()
-            val bundle = Bundle()
-            bundle.putParcelable("anim", RevealAnimationSetting(centreX, centreY,root.width, root.height))
-            val fragment = AddRecordFragment()
-            fragment.arguments = bundle
-
             fragmentManager.beginTransaction()
                     .setCustomAnimations(0,0, R.anim.enter_from_top, R.anim.exit_to_bottom)
-                    .replace(R.id.container, fragment)
+                    .replace(R.id.container, AddRecordFragment.newInstance(fab, root))
                     .addToBackStack(null).commit()
             listener?.onAddRecordClicked()
         }
@@ -87,7 +79,10 @@ class FeedFragment : Fragment(), FeedContract.View {
     }
 
     override fun showAccountDiagram(account: Int) {
-        Toast.makeText(context, "Diagram $account", Toast.LENGTH_SHORT).show()
+        fragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
+                .replace(R.id.container, DiagramFragment.newInstance(account))
+                .addToBackStack(null).commit()
     }
 
     override fun onDetach() {

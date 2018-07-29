@@ -6,10 +6,9 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bendezu.yandexfinances.CurrencySpinnerAdapter
 import com.bendezu.yandexfinances.R
-import com.bendezu.yandexfinances.SpinnerIconAdapter
-import com.bendezu.yandexfinances.util.currencies
-import com.bendezu.yandexfinances.util.currencyIds
+import com.bendezu.yandexfinances.model.currencies
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 interface SettingsFragmentClickListener {
@@ -40,8 +39,8 @@ class SettingsFragment : Fragment() {
         toolbar.setNavigationOnClickListener { listener?.onBackClicked() }
 
         val inflater = activity?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        primaryCurrencySpinner.adapter = SpinnerIconAdapter(inflater, currencies, currencyIds)
-        alternateCurrencySpinner.adapter = SpinnerIconAdapter(inflater, currencies, currencyIds)
+        primaryCurrencySpinner.adapter = CurrencySpinnerAdapter(inflater, currencies)
+        alternateCurrencySpinner.adapter = CurrencySpinnerAdapter(inflater, currencies)
 
         super.onViewCreated(view, savedInstanceState)
     }

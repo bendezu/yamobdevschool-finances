@@ -7,12 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.bendezu.yandexfinances.R
-import com.bendezu.yandexfinances.model.ExchangeRepository
-import com.bendezu.yandexfinances.model.calculateBalanceInUsd
-import com.bendezu.yandexfinances.model.getAlternateCurrency
-import com.bendezu.yandexfinances.model.getPrimaryCurrency
-import com.bendezu.yandexfinances.util.accounts
-import com.bendezu.yandexfinances.util.records
+import com.bendezu.yandexfinances.model.*
 
 class AccountPagerAdapter(val fragment: FeedFragment): PagerAdapter() {
 
@@ -25,8 +20,8 @@ class AccountPagerAdapter(val fragment: FeedFragment): PagerAdapter() {
         val alternateBalance = view.findViewById<TextView>(R.id.alternateBalance)
         val balance = calculateBalanceInUsd(records.asList(), position)
         val rateKoef = ExchangeRepository().getRateCoef(getPrimaryCurrency())
-        primaryBalance.text = balance.multiply(rateKoef).toPlainString() + " " + getPrimaryCurrency()
-        alternateBalance.text = balance.toPlainString() + " " + getAlternateCurrency()
+        primaryBalance.text = balance.multiply(rateKoef).toPlainString() + " " + getPrimaryCurrency().symbol
+        alternateBalance.text = balance.toPlainString() + " " + getAlternateCurrency().symbol
         view.findViewById<ImageView>(R.id.diagramButton).setOnClickListener {
             fragment.presenter.onDiagramClicked(position)
         }

@@ -20,7 +20,7 @@ fun registerCircularRevealAnimation(context: Context, view: View, revealSettings
             val cy = revealSettings.centerY
             val width = revealSettings.width
             val height = revealSettings.height
-            //Simply use the diagonal of the view
+
             val finalRadius = Math.hypot(width.toDouble(),height.toDouble()).toFloat()
             val anim = ViewAnimationUtils.createCircularReveal(v, cx, cy, 0f, finalRadius).setDuration(duration.toLong())
             anim.interpolator = FastOutSlowInInterpolator()

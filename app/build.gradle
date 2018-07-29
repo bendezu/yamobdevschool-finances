@@ -3,6 +3,8 @@ def constraint = '1.1.2'
 def runner = '1.0.2'
 def junit = '4.12'
 def espresso = '3.0.2'
+def mpAndroidChart = 'v3.0.3'
+def retrofit = '2.4.0'
 
 apply plugin: 'com.android.application'
 
@@ -29,9 +31,13 @@ android {
     }
 }
 
+repositories {
+    maven { url "https://jitpack.io" }
+}
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
     implementation "com.android.support:appcompat-v7:$support"
     implementation "com.android.support:preference-v7:$support"
     implementation "com.android.support:design:$support"
@@ -39,6 +45,10 @@ dependencies {
     implementation "com.android.support:support-v4:$support"
     implementation "com.android.support.constraint:constraint-layout:$constraint"
     implementation "com.android.support:support-v4:$support"
+
+    implementation "com.github.PhilJay:MPAndroidChart:$mpAndroidChart"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+
     implementation 'com.android.support:support-v4:26.1.0'
     testImplementation "junit:junit:$junit"
     androidTestImplementation "com.android.support.test:runner:$runner"
