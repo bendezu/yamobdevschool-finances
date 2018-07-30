@@ -1,6 +1,7 @@
 package com.bendezu.yandexfinances.addRecord
 
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat.getColor
@@ -14,6 +15,7 @@ import com.bendezu.yandexfinances.adapter.CategorySpinnerAdapter
 import com.bendezu.yandexfinances.adapter.CurrencySpinnerAdapter
 import com.bendezu.yandexfinances.model.categories
 import com.bendezu.yandexfinances.model.currencies
+import com.bendezu.yandexfinances.settings.PREF_PRIMARY_CURRENCY_KEY
 import com.bendezu.yandexfinances.util.RevealAnimationSetting
 import com.bendezu.yandexfinances.util.registerCircularRevealAnimation
 import kotlinx.android.synthetic.main.fragment_add_record.*
@@ -78,6 +80,8 @@ class AddRecordFragment : Fragment(), AddRecordContract.View {
                 presenter.onCurrencyChanged(currencies[position])
             }
         }
+        val primaryCurrencyId = context.getSharedPreferences("", MODE_PRIVATE).getInt(PREF_PRIMARY_CURRENCY_KEY, 0)
+        currencySpinner.setSelection(primaryCurrencyId)
 
         super.onViewCreated(view, savedInstanceState)
     }

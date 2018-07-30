@@ -3,6 +3,7 @@ package com.bendezu.yandexfinances.network
 import com.bendezu.yandexfinances.model.Currency
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
+import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -42,7 +43,9 @@ fun convertSync(from: String, to: String): String {
             val streamReader = InputStreamReader(connection.inputStream)
             val reader = BufferedReader(streamReader)
             val response = reader.readLine()
-            return response.substring(response.indexOf(':') + 1, response.length - 1)
+            val jsonObject = JSONObject(response)
+            return jsonObject.getString("${from}_${to}")
+            //return response.substring(response.indexOf(':') + 1, response.length - 1)
         }
         else -> {
             throw IOException("Error")

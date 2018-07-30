@@ -31,6 +31,10 @@ val records = arrayOf(
         Record(0, RecordType.INCOME, BigDecimal(10), 1, 0),
         Record(0, RecordType.EXPENSE, BigDecimal(5), 1, 1),
         Record(0, RecordType.INCOME, BigDecimal(10), 1, 0),
+        Record(0, RecordType.EXPENSE, BigDecimal(1), 1, 2),
+        Record(0, RecordType.EXPENSE, BigDecimal(2), 1, 2),
+        Record(0, RecordType.EXPENSE, BigDecimal(2), 1, 3),
+        Record(0, RecordType.EXPENSE, BigDecimal(3), 1, 1),
 
         Record(1, RecordType.INCOME, BigDecimal(20), 1, 0),
         Record(1, RecordType.EXPENSE, BigDecimal(10), 1, 3),

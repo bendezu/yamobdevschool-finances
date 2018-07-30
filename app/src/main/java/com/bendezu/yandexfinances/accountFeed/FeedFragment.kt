@@ -3,6 +3,7 @@ package com.bendezu.yandexfinances.accountFeed
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +11,10 @@ import android.widget.Toast
 import com.bendezu.yandexfinances.Navigator
 import com.bendezu.yandexfinances.R
 import com.bendezu.yandexfinances.Screen
+import com.bendezu.yandexfinances.adapter.RecordRecyclerViewAdapter
 import com.bendezu.yandexfinances.addRecord.AddRecordFragment
 import com.bendezu.yandexfinances.diagram.DiagramFragment
+import com.bendezu.yandexfinances.model.records
 import kotlinx.android.synthetic.main.fragment_feed.*
 
 class FeedFragment : Fragment(), FeedContract.View {
@@ -35,6 +38,9 @@ class FeedFragment : Fragment(), FeedContract.View {
         val pageListener = object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
                 Toast.makeText(context, "should update list for account " + position, Toast.LENGTH_SHORT).show()
+                (recyclerView.adapter as RecordRecyclerViewAdapter).records =
+                        records.filter { it.accountId == position }.toTypedArray()
+                recyclerView.adapter.notifyDataSetChanged()
             }
         }
         accountViewPager.addOnPageChangeListener(pageListener)
@@ -45,6 +51,10 @@ class FeedFragment : Fragment(), FeedContract.View {
                     0,0, R.anim.enter_from_top, R.anim.exit_to_bottom)
         }
         settings.setOnClickListener { v -> navigator.open(Screen.SETTINGS) }
+
+        recyclerView.adapter = RecordRecyclerViewAdapter(records)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+
         super.onViewCreated(view, savedInstanceState)
     }
 

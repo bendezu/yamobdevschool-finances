@@ -2,13 +2,13 @@
     <string name="app_name">Финансы</string>
 
     <string name="action_settings">Настройки</string>
-    <string name="about">About</string>
+    <string name="about">О приложении</string>
     <string name="app_description">приложение - трекер финансов</string>
     <string name="year">2018</string>
 
     <string name="settings">Настройки</string>
     <string name="primary_currency">Главная валюта</string>
-    <string name="alternate_currency">Дополнительная валюта</string>
+    <string name="alternate_currency">Доп. валюта</string>
 
     <string name="add_record">Добавить запись</string>
     <string name="category">Категория</string>
