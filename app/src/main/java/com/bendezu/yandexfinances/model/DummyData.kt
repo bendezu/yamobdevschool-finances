@@ -6,7 +6,6 @@ import com.github.mikephil.charting.utils.ColorTemplate.rgb
 import java.math.BigDecimal
 
 class Currency(val label: String, @DrawableRes val icon: Int, val symbol: Char)
-
 val currencies = arrayOf(
         Currency("RUB", R.drawable.russia, '\u20BD'),
         Currency("USD", R.drawable.usa, '$'),
@@ -14,7 +13,6 @@ val currencies = arrayOf(
 )
 
 class Category(val label: String, @DrawableRes val icon: Int, val color: Int)
-
 val categories = arrayOf(
         Category("Not categorized", R.drawable.ic_no_category_24dp, rgb("9e9e9e")),
         Category("Food", R.drawable.ic_food_24dp, rgb("ff8f00")),
@@ -24,6 +22,11 @@ val categories = arrayOf(
 
 val accounts = arrayOf("Debit Card", "Cash")
 
+enum class RecordType {
+    EXPENSE,
+    INCOME
+}
+class Record(val accountId: Int, val type: RecordType, val amount: BigDecimal, val currencyId: Int, val categoryId: Int)
 val records = arrayOf(
         Record(0, RecordType.INCOME, BigDecimal(10), 1, 0),
         Record(0, RecordType.EXPENSE, BigDecimal(5), 1, 1),

@@ -1,32 +1,29 @@
 package com.bendezu.yandexfinances.settings
 
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bendezu.yandexfinances.CurrencySpinnerAdapter
+import android.widget.AdapterView
+import com.bendezu.yandexfinances.Navigator
 import com.bendezu.yandexfinances.R
+import com.bendezu.yandexfinances.Screen
+import com.bendezu.yandexfinances.adapter.CurrencySpinnerAdapter
 import com.bendezu.yandexfinances.model.currencies
 import kotlinx.android.synthetic.main.fragment_settings.*
 
-interface SettingsFragmentClickListener {
-    fun onAboutClicked()
-    fun onBackClicked()
-}
+class SettingsFragment : Fragment(), SettingsContract.View  {
 
-class SettingsFragment : Fragment() {
+    private lateinit var presenter: SettingsContract.Presenter
+    private lateinit var navigator: Navigator
 
-    private var listener: SettingsFragmentClickListener? = null
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is SettingsFragmentClickListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement SettingsFragmentClickListener")
-        }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val preferences = context.getSharedPreferences("", MODE_PRIVATE)
+        presenter = SettingsFragmentPresenter(this, preferences)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -35,19 +32,41 @@ class SettingsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        about.setOnClickListener{ listener?.onAboutClicked() }
-        toolbar.setNavigationOnClickListener { listener?.onBackClicked() }
+        navigator = Navigator(fragmentManager)
+
+        about.setOnClickListener{ navigator.open(Screen.ABOUT) }
+        toolbar.setNavigationOnClickListener { navigator.back() }
 
         val inflater = activity?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
         primaryCurrencySpinner.adapter = CurrencySpinnerAdapter(inflater, currencies)
+        primaryCurrencySpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                presenter.savePrimaryCurrency(position)
+            }
+
+        }
         alternateCurrencySpinner.adapter = CurrencySpinnerAdapter(inflater, currencies)
+        alternateCurrencySpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                presenter.saveAlternateCurrency(position)
+            }
+
+        }
+
+        presenter.setupUI()
 
         super.onViewCreated(view, savedInstanceState)
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
+    override fun selectPrimaryCurrency(currencyId: Int) {
+        primaryCurrencySpinner.setSelection(currencyId)
+    }
+
+    override fun selectAlternateCurrency(currencyId: Int) {
+        alternateCurrencySpinner.setSelection(currencyId)
     }
 
 }

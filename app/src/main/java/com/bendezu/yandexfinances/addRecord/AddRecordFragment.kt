@@ -9,9 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
-import com.bendezu.yandexfinances.CategorySpinnerAdapter
-import com.bendezu.yandexfinances.CurrencySpinnerAdapter
 import com.bendezu.yandexfinances.R
+import com.bendezu.yandexfinances.adapter.CategorySpinnerAdapter
+import com.bendezu.yandexfinances.adapter.CurrencySpinnerAdapter
 import com.bendezu.yandexfinances.model.categories
 import com.bendezu.yandexfinances.model.currencies
 import com.bendezu.yandexfinances.util.RevealAnimationSetting
@@ -19,25 +19,11 @@ import com.bendezu.yandexfinances.util.registerCircularRevealAnimation
 import kotlinx.android.synthetic.main.fragment_add_record.*
 import kotlin.math.roundToInt
 
-interface AddRecordFragmentListener {
-    fun onCancelClicked()
-}
-
 private const val ARG_REVEAL_SETTINGS = "reveal_settings"
 
 class AddRecordFragment : Fragment(), AddRecordContract.View {
 
-    private var listener: AddRecordFragmentListener? = null
     private lateinit var presenter: AddRecordContract.Presenter
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is AddRecordFragmentListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement AddRecordFragmentListener")
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,7 +57,7 @@ class AddRecordFragment : Fragment(), AddRecordContract.View {
         }
 
         toolbar.inflateMenu(R.menu.add_record_menu)
-        toolbar.setNavigationOnClickListener { listener?.onCancelClicked() }
+        toolbar.setNavigationOnClickListener { fragmentManager.popBackStack() }
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.action_add -> {
@@ -98,11 +84,6 @@ class AddRecordFragment : Fragment(), AddRecordContract.View {
 
     override fun updateRecordInfo(info: String) {
         recordInfo.text = info
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
     }
 
     override fun onDestroy() {

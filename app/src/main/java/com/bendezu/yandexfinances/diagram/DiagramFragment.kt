@@ -1,4 +1,4 @@
-package com.bendezu.yandexfinances
+package com.bendezu.yandexfinances.diagram
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.bendezu.yandexfinances.R
 import com.bendezu.yandexfinances.model.categories
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
@@ -57,11 +58,11 @@ class DiagramFragment : Fragment() {
         set.setDrawValues(false)
 
         val data = PieData(set as IPieDataSet)
-        val legend = diagram.legend
 
+        val legend = diagram.legend
         legend.isEnabled = false
 
-        diagram.setHoleColor(getColor(context,R.color.colorPrimaryDark))
+        diagram.setHoleColor(getColor(context, R.color.colorPrimaryDark))
         diagram.description = null
         diagram.data = data
         diagram.invalidate()
