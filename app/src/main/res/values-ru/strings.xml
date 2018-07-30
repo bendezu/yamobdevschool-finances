@@ -2,11 +2,20 @@
     <string name="app_name">Финансы</string>
 
     <string name="action_settings">Настройки</string>
-    <string name="about">About</string>
+    <string name="about">О приложении</string>
     <string name="app_description">приложение - трекер финансов</string>
     <string name="year">2018</string>
+
     <string name="settings">Настройки</string>
-    <string name="pref_show_decimals">Показать дродную часть</string>
-    <string name="pref_show_decimals_off">Спрятаны</string>
-    <string name="pref_show_decimals_on">Показаны</string>
+    <string name="primary_currency">Главная валюта</string>
+    <string name="alternate_currency">Доп. валюта</string>
+
+    <string name="add_record">Добавить запись</string>
+    <string name="category">Категория</string>
+    <string name="currency">Валюта</string>
+    <string name="amount">Количество</string>
+    <string name="expense">Расход</string>
+    <string name="income">Доход</string>
+    <string name="add">Добавить</string>
+
 </resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    tools:background="@color/colorPrimaryDark">
+    
+    <ImageView
+        android:id="@+id/legendIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        tools:src="@drawable/ic_food_24dp"
+        android:layout_gravity="center_vertical|start"/>
+    
+    <TextView
+        android:id="@+id/legendLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="100dp"
+        android:textSize="18sp"
+        android:textColor="@color/colorTextPrimary"
+        tools:text="category"/>
+    
+    <TextView
+        android:id="@+id/legendAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|end"
+        android:layout_margin="10dp"
+        android:textSize="18sp"
+        android:textColor="@color/colorTextPrimary"
+        tools:text="1234.56 RUB"/>
+
+</FrameLayout>
