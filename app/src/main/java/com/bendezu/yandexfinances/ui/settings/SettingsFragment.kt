@@ -1,4 +1,4 @@
-package com.bendezu.yandexfinances.settings
+package com.bendezu.yandexfinances.ui.settings
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
@@ -8,11 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import com.bendezu.yandexfinances.Navigator
 import com.bendezu.yandexfinances.R
-import com.bendezu.yandexfinances.Screen
-import com.bendezu.yandexfinances.adapter.CurrencySpinnerAdapter
-import com.bendezu.yandexfinances.model.currencies
+import com.bendezu.yandexfinances.data.model.currencies
+import com.bendezu.yandexfinances.util.Navigator
+import com.bendezu.yandexfinances.util.Screen
+import com.bendezu.yandexfinances.util.adapter.CurrencySpinnerAdapter
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 class SettingsFragment : Fragment(), SettingsContract.View  {

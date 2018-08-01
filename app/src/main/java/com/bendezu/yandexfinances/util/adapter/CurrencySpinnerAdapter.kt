@@ -1,4 +1,4 @@
-package com.bendezu.yandexfinances.adapter
+package com.bendezu.yandexfinances.util.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,7 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.bendezu.yandexfinances.R
-import com.bendezu.yandexfinances.model.Currency
+import com.bendezu.yandexfinances.data.model.Currency
 
 class CurrencySpinnerAdapter(private val inflater: LayoutInflater, private val currencies: Array<Currency>) : BaseAdapter() {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {

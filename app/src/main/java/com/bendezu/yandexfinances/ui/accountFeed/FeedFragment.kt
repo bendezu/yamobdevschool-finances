@@ -1,4 +1,4 @@
-package com.bendezu.yandexfinances.accountFeed
+package com.bendezu.yandexfinances.ui.accountFeed
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -7,14 +7,14 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import com.bendezu.yandexfinances.Navigator
 import com.bendezu.yandexfinances.R
-import com.bendezu.yandexfinances.Screen
-import com.bendezu.yandexfinances.adapter.RecordRecyclerViewAdapter
-import com.bendezu.yandexfinances.addRecord.AddRecordFragment
-import com.bendezu.yandexfinances.diagram.DiagramFragment
-import com.bendezu.yandexfinances.model.records
+import com.bendezu.yandexfinances.data.model.records
+import com.bendezu.yandexfinances.ui.addRecord.AddRecordFragment
+import com.bendezu.yandexfinances.ui.diagram.DiagramFragment
+import com.bendezu.yandexfinances.util.Navigator
+import com.bendezu.yandexfinances.util.Screen
+import com.bendezu.yandexfinances.util.adapter.AccountPagerAdapter
+import com.bendezu.yandexfinances.util.adapter.RecordRecyclerViewAdapter
 import kotlinx.android.synthetic.main.fragment_feed.*
 
 class FeedFragment : Fragment(), FeedContract.View {
@@ -34,10 +34,9 @@ class FeedFragment : Fragment(), FeedContract.View {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         navigator = Navigator(fragmentManager)
-        accountViewPager.adapter = AccountPagerAdapter(this)
+        accountViewPager.adapter = AccountPagerAdapter(context, presenter)
         val pageListener = object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
-                Toast.makeText(context, "should update list for account " + position, Toast.LENGTH_SHORT).show()
                 (recyclerView.adapter as RecordRecyclerViewAdapter).records =
                         records.filter { it.accountId == position }.toTypedArray()
                 recyclerView.adapter.notifyDataSetChanged()
@@ -54,13 +53,15 @@ class FeedFragment : Fragment(), FeedContract.View {
 
         recyclerView.adapter = RecordRecyclerViewAdapter(records)
         recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.setHasFixedSize(true)
 
         super.onViewCreated(view, savedInstanceState)
     }
 
     override fun showAccountDiagram(account: Int) {
         navigator.open(DiagramFragment.newInstance(account),
-                R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
+                android.R.anim.fade_in, android.R.anim.fade_out,
+                android.R.anim.fade_in, android.R.anim.fade_out)
     }
 
     override fun onDestroy() {

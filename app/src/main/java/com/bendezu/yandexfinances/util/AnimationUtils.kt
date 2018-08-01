@@ -3,11 +3,11 @@ package com.bendezu.yandexfinances.util
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.content.Context
-import android.os.Parcel
 import android.os.Parcelable
 import android.support.v4.view.animation.FastOutSlowInInterpolator
 import android.view.View
 import android.view.ViewAnimationUtils
+import kotlinx.android.parcel.Parcelize
 
 fun registerCircularRevealAnimation(context: Context, view: View, revealSettings: RevealAnimationSetting,
                                     startColor: Int, endColor: Int) {
@@ -39,37 +39,9 @@ internal fun startColorAnimation(view: View, startColor: Int, endColor: Int, dur
     anim.start()
 }
 
-class RevealAnimationSetting(
+@Parcelize
+data class RevealAnimationSetting(
     val centerX: Int,
     val centerY: Int,
     val width: Int,
-    val height: Int
-) : Parcelable {
-    constructor(parcel: Parcel) : this(
-            parcel.readInt(),
-            parcel.readInt(),
-            parcel.readInt(),
-            parcel.readInt()) {
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(centerX)
-        parcel.writeInt(centerY)
-        parcel.writeInt(width)
-        parcel.writeInt(height)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<RevealAnimationSetting> {
-        override fun createFromParcel(parcel: Parcel): RevealAnimationSetting {
-            return RevealAnimationSetting(parcel)
-        }
-
-        override fun newArray(size: Int): Array<RevealAnimationSetting?> {
-            return arrayOfNulls(size)
-        }
-    }
-}
+    val height: Int): Parcelable

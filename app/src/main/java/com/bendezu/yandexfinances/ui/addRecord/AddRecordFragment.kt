@@ -1,4 +1,4 @@
-package com.bendezu.yandexfinances.addRecord
+package com.bendezu.yandexfinances.ui.addRecord
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
@@ -11,12 +11,12 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import com.bendezu.yandexfinances.R
-import com.bendezu.yandexfinances.adapter.CategorySpinnerAdapter
-import com.bendezu.yandexfinances.adapter.CurrencySpinnerAdapter
-import com.bendezu.yandexfinances.model.categories
-import com.bendezu.yandexfinances.model.currencies
-import com.bendezu.yandexfinances.settings.PREF_PRIMARY_CURRENCY_KEY
+import com.bendezu.yandexfinances.data.model.categories
+import com.bendezu.yandexfinances.data.model.currencies
+import com.bendezu.yandexfinances.ui.settings.PREF_PRIMARY_CURRENCY_KEY
 import com.bendezu.yandexfinances.util.RevealAnimationSetting
+import com.bendezu.yandexfinances.util.adapter.CategorySpinnerAdapter
+import com.bendezu.yandexfinances.util.adapter.CurrencySpinnerAdapter
 import com.bendezu.yandexfinances.util.registerCircularRevealAnimation
 import kotlinx.android.synthetic.main.fragment_add_record.*
 import kotlin.math.roundToInt
@@ -96,7 +96,6 @@ class AddRecordFragment : Fragment(), AddRecordContract.View {
     }
 
     companion object {
-        @JvmStatic
         fun newInstance(fab: View, root: View): AddRecordFragment {
             val centreX = (fab.x + fab.width  / 2).roundToInt()
             val centreY = (fab.y + fab.height / 2).roundToInt()

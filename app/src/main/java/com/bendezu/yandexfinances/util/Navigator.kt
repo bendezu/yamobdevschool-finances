@@ -1,14 +1,15 @@
-package com.bendezu.yandexfinances
+package com.bendezu.yandexfinances.util
 
 import android.support.annotation.AnimRes
 import android.support.annotation.AnimatorRes
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import com.bendezu.yandexfinances.about.AboutFragment
-import com.bendezu.yandexfinances.accountFeed.FeedFragment
-import com.bendezu.yandexfinances.addRecord.AddRecordFragment
-import com.bendezu.yandexfinances.diagram.DiagramFragment
-import com.bendezu.yandexfinances.settings.SettingsFragment
+import com.bendezu.yandexfinances.R
+import com.bendezu.yandexfinances.ui.about.AboutFragment
+import com.bendezu.yandexfinances.ui.accountFeed.FeedFragment
+import com.bendezu.yandexfinances.ui.addRecord.AddRecordFragment
+import com.bendezu.yandexfinances.ui.diagram.DiagramFragment
+import com.bendezu.yandexfinances.ui.settings.SettingsFragment
 
 enum class Screen {
     ACCOUNT_FEED,
@@ -42,8 +43,8 @@ class Navigator(private val fragmentManager: FragmentManager) {
             }
             Screen.DIAGRAM -> {
                 open(DiagramFragment(),
-                        R.anim.fade_in, R.anim.fade_out,
-                        R.anim.fade_in, R.anim.fade_out)
+                        android.R.anim.fade_in, android.R.anim.fade_out,
+                        android.R.anim.fade_in, android.R.anim.fade_out)
             }
             Screen.SETTINGS -> {
                 open(SettingsFragment(),

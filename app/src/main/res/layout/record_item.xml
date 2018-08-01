@@ -7,7 +7,7 @@
     app:cardCornerRadius="10dp"
     android:padding="8dp"
     android:layout_margin="4dp"
-    app:cardBackgroundColor="@color/colorPrimaryLight">
+    app:cardBackgroundColor="@color/cardview_dark_background">
 
     <ImageView
         android:id="@+id/recordIcon"

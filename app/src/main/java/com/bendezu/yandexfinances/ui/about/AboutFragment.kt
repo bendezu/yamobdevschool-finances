@@ -1,4 +1,4 @@
-package com.bendezu.yandexfinances.about
+package com.bendezu.yandexfinances.ui.about
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -15,7 +15,7 @@ class AboutFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_about, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         toolbar.setNavigationOnClickListener{ fragmentManager.popBackStack() }
         super.onViewCreated(view, savedInstanceState)
     }

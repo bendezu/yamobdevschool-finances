@@ -1,4 +1,4 @@
-package com.bendezu.yandexfinances.model
+package com.bendezu.yandexfinances.data.model
 
 import android.support.annotation.DrawableRes
 import com.bendezu.yandexfinances.R

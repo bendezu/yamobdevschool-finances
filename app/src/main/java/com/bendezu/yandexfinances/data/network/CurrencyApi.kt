@@ -1,6 +1,6 @@
-package com.bendezu.yandexfinances.network
+package com.bendezu.yandexfinances.data.network
 
-import com.bendezu.yandexfinances.model.Currency
+import com.bendezu.yandexfinances.data.model.Currency
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import org.json.JSONObject
