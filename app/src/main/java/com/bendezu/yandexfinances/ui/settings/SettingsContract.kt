@@ -1,4 +1,4 @@
-package com.bendezu.yandexfinances.settings
+package com.bendezu.yandexfinances.ui.settings
 
 interface SettingsContract {
     interface View {

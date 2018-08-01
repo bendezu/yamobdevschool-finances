@@ -1,4 +1,4 @@
-package com.bendezu.yandexfinances.addRecord
+package com.bendezu.yandexfinances.ui.addRecord
 
 import android.text.Editable
 import android.text.TextWatcher

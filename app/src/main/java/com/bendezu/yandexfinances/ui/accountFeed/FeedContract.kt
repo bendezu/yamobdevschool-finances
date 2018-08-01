@@ -1,4 +1,4 @@
-package com.bendezu.yandexfinances.accountFeed
+package com.bendezu.yandexfinances.ui.accountFeed
 
 interface FeedContract {
 

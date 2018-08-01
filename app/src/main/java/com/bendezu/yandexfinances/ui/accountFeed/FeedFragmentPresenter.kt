@@ -1,4 +1,4 @@
-package com.bendezu.yandexfinances.accountFeed
+package com.bendezu.yandexfinances.ui.accountFeed
 
 class FeedFragmentPresenter(var view: FeedContract.View?) : FeedContract.Presenter {
 

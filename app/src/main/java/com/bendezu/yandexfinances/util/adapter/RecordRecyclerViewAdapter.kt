@@ -1,4 +1,4 @@
-package com.bendezu.yandexfinances.adapter
+package com.bendezu.yandexfinances.util.adapter
 
 import android.graphics.Color
 import android.support.v7.widget.RecyclerView
@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.bendezu.yandexfinances.R
-import com.bendezu.yandexfinances.model.Record
-import com.bendezu.yandexfinances.model.RecordType
-import com.bendezu.yandexfinances.model.categories
-import com.bendezu.yandexfinances.model.currencies
+import com.bendezu.yandexfinances.data.model.Record
+import com.bendezu.yandexfinances.data.model.RecordType
+import com.bendezu.yandexfinances.data.model.categories
+import com.bendezu.yandexfinances.data.model.currencies
 
 
 class RecordRecyclerViewAdapter(var records: Array<Record>) :
@@ -30,7 +30,6 @@ class RecordRecyclerViewAdapter(var records: Array<Record>) :
         return ViewHolder(view)
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val record = records[position]
         val categoryId = record.categoryId

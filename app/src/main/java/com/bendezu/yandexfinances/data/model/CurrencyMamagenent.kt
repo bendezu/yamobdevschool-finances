@@ -1,15 +1,16 @@
-package com.bendezu.yandexfinances.model
+package com.bendezu.yandexfinances.data.model
 
-import com.bendezu.yandexfinances.network.convertSync
+import com.bendezu.yandexfinances.data.network.convertSync
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
+import java.io.IOException
 import java.math.BigDecimal
 import java.math.MathContext
 
 fun calculateBalance(records: Array<Record>, accountId: Int, targetCurrencyId: Int, callback: (BigDecimal?)->(Unit)) {
     launch {
         try {
-            var sum = BigDecimal(0)
+            var sum = BigDecimal.ZERO
             records.filter { it.accountId == accountId }.groupBy { it.currencyId }.map {
                 calculateSum(it.value, it.key, targetCurrencyId)
             }.forEach { sum += it }
@@ -17,7 +18,7 @@ fun calculateBalance(records: Array<Record>, accountId: Int, targetCurrencyId: I
             launch(UI) {
                 callback(sum)
             }
-        } catch (e: Exception) {
+        } catch (e: IOException) {
             launch(UI) {
                 callback(null)
             }
@@ -27,7 +28,7 @@ fun calculateBalance(records: Array<Record>, accountId: Int, targetCurrencyId: I
 
 private fun calculateSum(records: List<Record>, fromCurrencyId: Int, targetCurrencyId: Int): BigDecimal {
     val rate  = convertSync(currencies[fromCurrencyId].label, currencies[targetCurrencyId].label)
-    var sum = BigDecimal(0)
+    var sum = BigDecimal.ZERO
     records.forEach {
         if (it.type == RecordType.INCOME)
             sum += it.amount

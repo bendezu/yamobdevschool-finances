@@ -1,8 +1,8 @@
-package com.bendezu.yandexfinances.addRecord
+package com.bendezu.yandexfinances.ui.addRecord
 
-import com.bendezu.yandexfinances.model.Currency
-import com.bendezu.yandexfinances.model.RecordType
-import com.bendezu.yandexfinances.model.currencies
+import com.bendezu.yandexfinances.data.model.Currency
+import com.bendezu.yandexfinances.data.model.RecordType
+import com.bendezu.yandexfinances.data.model.currencies
 import java.math.BigDecimal
 import java.math.RoundingMode
 

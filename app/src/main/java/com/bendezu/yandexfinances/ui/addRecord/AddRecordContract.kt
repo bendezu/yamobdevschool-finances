@@ -1,6 +1,6 @@
-package com.bendezu.yandexfinances.addRecord
+package com.bendezu.yandexfinances.ui.addRecord
 
-import com.bendezu.yandexfinances.model.Currency
+import com.bendezu.yandexfinances.data.model.Currency
 
 interface AddRecordContract {
     interface View {

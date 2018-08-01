@@ -1,16 +1,15 @@
-package com.bendezu.yandexfinances.diagram
+package com.bendezu.yandexfinances.ui.diagram
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat.getColor
-import android.support.v4.content.ContextCompat.getDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.bendezu.yandexfinances.R
-import com.bendezu.yandexfinances.model.categories
+import com.bendezu.yandexfinances.data.model.categories
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -35,14 +34,14 @@ class DiagramFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_diagram, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         toolbar.setNavigationOnClickListener { fragmentManager.popBackStack() }
 
         val entries = ArrayList<PieEntry>()
         for (id in categories.indices) {
             val amount = (id+1)*10f
-            entries.add(PieEntry(amount, getDrawable(context, categories[id].icon)))
+            entries.add(PieEntry(amount, context.getDrawable(categories[id].icon)))
 
             val legendItem = LayoutInflater.from(context).inflate(R.layout.legend_item, legend, false)
             legendItem.findViewById<ImageView>(R.id.legendIcon).apply {
