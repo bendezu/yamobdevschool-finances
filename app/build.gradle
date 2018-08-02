@@ -4,6 +4,8 @@ def runner = '1.0.2'
 def junit = '4.12'
 def espresso = '3.0.2'
 def mpAndroidChart = 'v3.0.3'
+def daggerVersion = '2.16'
+def timberVersion = '4.7.1'
 
 apply plugin: 'com.android.application'
 
@@ -13,6 +15,8 @@ apply plugin: 'kotlin-android-extensions'
 androidExtensions {
     experimental = true
 }
+
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 26
@@ -49,6 +53,11 @@ dependencies {
     implementation "com.android.support:support-v4:$support"
 
     implementation "com.github.PhilJay:MPAndroidChart:$mpAndroidChart"
+
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    implementation "com.jakewharton.timber:timber:$timberVersion"
 
     testImplementation "junit:junit:$junit"
     androidTestImplementation "com.android.support.test:runner:$runner"

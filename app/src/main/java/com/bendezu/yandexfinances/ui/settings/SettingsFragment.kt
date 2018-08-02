@@ -3,31 +3,36 @@ package com.bendezu.yandexfinances.ui.settings
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import com.bendezu.yandexfinances.App
 import com.bendezu.yandexfinances.R
 import com.bendezu.yandexfinances.data.model.currencies
+import com.bendezu.yandexfinances.injection.components.fragment.SettingsFragmentComponent
+import com.bendezu.yandexfinances.ui.base.BaseFragment
 import com.bendezu.yandexfinances.util.Navigator
 import com.bendezu.yandexfinances.util.Screen
 import com.bendezu.yandexfinances.util.adapter.CurrencySpinnerAdapter
 import kotlinx.android.synthetic.main.fragment_settings.*
+import javax.inject.Inject
 
-class SettingsFragment : Fragment(), SettingsContract.View  {
+class SettingsFragment: BaseFragment(), SettingsContract.View  {
 
-    private lateinit var presenter: SettingsContract.Presenter
+    @Inject @JvmSuppressWildcards lateinit var presenter: SettingsContract.Presenter<SettingsContract.View>
     private lateinit var navigator: Navigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val preferences = context.getSharedPreferences("", MODE_PRIVATE)
-        presenter = SettingsFragmentPresenter(this, preferences)
+
+        (App.instance.componentsHolder.getComponent(javaClass) as SettingsFragmentComponent)
+                .inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        presenter.attachView(this)
         return inflater.inflate(R.layout.fragment_settings, container, false)
     }
 
@@ -69,4 +74,10 @@ class SettingsFragment : Fragment(), SettingsContract.View  {
         alternateCurrencySpinner.setSelection(currencyId)
     }
 
+    override fun onDestroy() {
+        presenter.detachView()
+        super.onDestroy()
+
+        if (isRemoving) App.instance.componentsHolder.releaseComponent(javaClass)
+    }
 }

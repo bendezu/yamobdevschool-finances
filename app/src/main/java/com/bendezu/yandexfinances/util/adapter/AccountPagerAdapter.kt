@@ -11,11 +11,14 @@ import android.widget.Toast
 import com.bendezu.yandexfinances.R
 import com.bendezu.yandexfinances.data.model.*
 import com.bendezu.yandexfinances.ui.accountFeed.FeedContract
-import com.bendezu.yandexfinances.ui.settings.PREF_ALTERNATE_CURRENCY_KEY
-import com.bendezu.yandexfinances.ui.settings.PREF_PRIMARY_CURRENCY_KEY
+import timber.log.Timber
 import java.math.RoundingMode
+import javax.inject.Inject
 
-class AccountPagerAdapter(val context: Context, val presenter: FeedContract.Presenter): PagerAdapter() {
+class AccountPagerAdapter constructor(private val context: Context,
+                                      private val presenter: FeedContract.Presenter<FeedContract.View>,
+                                      private val primaryCurrencyId: Int, private val alternateCurrencyId: Int)
+    : PagerAdapter() {
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val inflater = LayoutInflater.from(context)
@@ -25,20 +28,20 @@ class AccountPagerAdapter(val context: Context, val presenter: FeedContract.Pres
         val primaryBalance = view.findViewById<TextView>(R.id.primaryBalance)
         val alternateBalance = view.findViewById<TextView>(R.id.alternateBalance)
 
-        val preferences = context.getSharedPreferences("", Context.MODE_PRIVATE)
-        val primaryCurrencyId = preferences.getInt(PREF_PRIMARY_CURRENCY_KEY, 0)
-        val alternateCurrencyId = preferences.getInt(PREF_ALTERNATE_CURRENCY_KEY, 0)
-
         calculateBalance(records, position, primaryCurrencyId) {
             if (it != null) {
+                Timber.d("test")
                 var rounded = it.setScale(2, RoundingMode.HALF_UP).toPlainString()
                 primaryBalance.text = "$rounded ${currencies[primaryCurrencyId].symbol}"
+
+                Timber.d("balance: %s", primaryBalance.text.toString())
 
                 convertBalance(it, primaryCurrencyId, alternateCurrencyId) {
                     rounded = it.setScale(2, RoundingMode.HALF_UP).toPlainString()
                     alternateBalance.text = "$rounded ${currencies[alternateCurrencyId].symbol}"
                 }
             } else {
+                Timber.w("network error")
                 //error
                 Toast.makeText(context, context.getString(R.string.network_error), Toast.LENGTH_SHORT).show()
             }

@@ -3,38 +3,39 @@ package com.bendezu.yandexfinances.ui.addRecord
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat.getColor
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
+import com.bendezu.yandexfinances.App
 import com.bendezu.yandexfinances.R
 import com.bendezu.yandexfinances.data.model.categories
 import com.bendezu.yandexfinances.data.model.currencies
-import com.bendezu.yandexfinances.ui.settings.PREF_PRIMARY_CURRENCY_KEY
+import com.bendezu.yandexfinances.injection.components.fragment.AddRecordFragmentComponent
+import com.bendezu.yandexfinances.ui.base.BaseFragment
 import com.bendezu.yandexfinances.util.RevealAnimationSetting
 import com.bendezu.yandexfinances.util.adapter.CategorySpinnerAdapter
 import com.bendezu.yandexfinances.util.adapter.CurrencySpinnerAdapter
 import com.bendezu.yandexfinances.util.registerCircularRevealAnimation
 import kotlinx.android.synthetic.main.fragment_add_record.*
+import javax.inject.Inject
 import kotlin.math.roundToInt
 
 private const val ARG_REVEAL_SETTINGS = "reveal_settings"
 
-class AddRecordFragment : Fragment(), AddRecordContract.View {
+class AddRecordFragment: BaseFragment(), AddRecordContract.View {
 
-    private lateinit var presenter: AddRecordContract.Presenter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        presenter = AddRecordFragmentPresenter(this)
-    }
+    @Inject @JvmSuppressWildcards lateinit var presenter: AddRecordContract.Presenter<AddRecordContract.View>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_add_record, container, false)
+
+        (App.instance.componentsHolder.getComponent(javaClass) as AddRecordFragmentComponent)
+                .inject(this)
+
         if (savedInstanceState == null) {
             registerCircularRevealAnimation(context, view, arguments.getParcelable(ARG_REVEAL_SETTINGS),
                     getColor(context, R.color.colorAccent), getColor(context, R.color.colorPrimaryDark))
@@ -43,6 +44,7 @@ class AddRecordFragment : Fragment(), AddRecordContract.View {
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        presenter.attachView(this)
         presenter.setupUI()
 
         amountEditText.requestFocus()
@@ -80,9 +82,6 @@ class AddRecordFragment : Fragment(), AddRecordContract.View {
                 presenter.onCurrencyChanged(currencies[position])
             }
         }
-        val primaryCurrencyId = context.getSharedPreferences("", MODE_PRIVATE).getInt(PREF_PRIMARY_CURRENCY_KEY, 0)
-        currencySpinner.setSelection(primaryCurrencyId)
-
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -90,9 +89,14 @@ class AddRecordFragment : Fragment(), AddRecordContract.View {
         recordInfo.text = info
     }
 
+    override fun setPrimaryCurrency(primaryCurrencyId: Int) {
+        currencySpinner.setSelection(primaryCurrencyId)
+    }
+
     override fun onDestroy() {
         presenter.detachView()
         super.onDestroy()
+        if (isRemoving) App.instance.componentsHolder.releaseComponent(javaClass)
     }
 
     companion object {
