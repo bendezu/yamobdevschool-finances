@@ -9,11 +9,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.bendezu.yandexfinances.R
-import com.bendezu.yandexfinances.data.model.*
+import com.bendezu.yandexfinances.data.local.accounts
+import com.bendezu.yandexfinances.data.local.currencies
+import com.bendezu.yandexfinances.data.local.records
 import com.bendezu.yandexfinances.ui.accountFeed.FeedContract
+import com.bendezu.yandexfinances.util.calculateBalance
+import com.bendezu.yandexfinances.util.convertBalance
 import timber.log.Timber
 import java.math.RoundingMode
-import javax.inject.Inject
 
 class AccountPagerAdapter constructor(private val context: Context,
                                       private val presenter: FeedContract.Presenter<FeedContract.View>,
@@ -36,8 +39,8 @@ class AccountPagerAdapter constructor(private val context: Context,
 
                 Timber.d("balance: %s", primaryBalance.text.toString())
 
-                convertBalance(it, primaryCurrencyId, alternateCurrencyId) {
-                    rounded = it.setScale(2, RoundingMode.HALF_UP).toPlainString()
+                convertBalance(it, primaryCurrencyId, alternateCurrencyId) { value ->
+                    rounded = value.setScale(2, RoundingMode.HALF_UP).toPlainString()
                     alternateBalance.text = "$rounded ${currencies[alternateCurrencyId].symbol}"
                 }
             } else {

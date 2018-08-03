@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.bendezu.yandexfinances.App
 import com.bendezu.yandexfinances.R
-import com.bendezu.yandexfinances.data.model.records
+import com.bendezu.yandexfinances.data.local.records
 import com.bendezu.yandexfinances.injection.components.fragment.FeedFragmentComponent
 import com.bendezu.yandexfinances.ui.addRecord.AddRecordFragment
 import com.bendezu.yandexfinances.ui.base.BaseFragment
@@ -23,7 +23,9 @@ import javax.inject.Inject
 class FeedFragment: BaseFragment(), FeedContract.View {
 
     @Inject @JvmSuppressWildcards lateinit var presenter: FeedContract.Presenter<FeedContract.View>
-    lateinit var navigator: Navigator
+    @Inject lateinit var recordAdapter: RecordRecyclerViewAdapter
+
+    private lateinit var navigator: Navigator
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -45,9 +47,11 @@ class FeedFragment: BaseFragment(), FeedContract.View {
         }
         settings.setOnClickListener { navigator.open(Screen.SETTINGS) }
 
-        recyclerView.adapter = RecordRecyclerViewAdapter(records)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
+        recyclerView.adapter = recordAdapter
+
+        recordAdapter.records = records.toList()
 
         super.onViewCreated(view, savedInstanceState)
     }
@@ -56,8 +60,7 @@ class FeedFragment: BaseFragment(), FeedContract.View {
         accountViewPager.adapter = AccountPagerAdapter(context, presenter, primaryCurrencyId, secondaryCurrencyId)
         val pageListener = object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
-                (recyclerView.adapter as RecordRecyclerViewAdapter).records =
-                        records.filter { it.accountId == position }.toTypedArray()
+                recordAdapter.records = records.filter { it.accountId == position }.toList()
                 recyclerView.adapter.notifyDataSetChanged()
             }
         }

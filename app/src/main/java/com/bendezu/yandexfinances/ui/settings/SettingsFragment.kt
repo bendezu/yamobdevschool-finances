@@ -1,7 +1,6 @@
 package com.bendezu.yandexfinances.ui.settings
 
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import com.bendezu.yandexfinances.App
 import com.bendezu.yandexfinances.R
-import com.bendezu.yandexfinances.data.model.currencies
+import com.bendezu.yandexfinances.data.local.currencies
 import com.bendezu.yandexfinances.injection.components.fragment.SettingsFragmentComponent
 import com.bendezu.yandexfinances.ui.base.BaseFragment
 import com.bendezu.yandexfinances.util.Navigator

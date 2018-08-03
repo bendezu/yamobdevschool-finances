@@ -1,18 +1,19 @@
-package com.bendezu.yandexfinances.data.model
+package com.bendezu.yandexfinances.data.local
 
-import android.support.annotation.DrawableRes
 import com.bendezu.yandexfinances.R
+import com.bendezu.yandexfinances.data.model.Category
+import com.bendezu.yandexfinances.data.model.Currency
+import com.bendezu.yandexfinances.data.model.Record
+import com.bendezu.yandexfinances.data.model.RecordType
 import com.github.mikephil.charting.utils.ColorTemplate.rgb
 import java.math.BigDecimal
 
-class Currency(val label: String, @DrawableRes val icon: Int, val symbol: Char)
 val currencies = arrayOf(
         Currency("RUB", R.drawable.russia, '\u20BD'),
         Currency("USD", R.drawable.usa, '$'),
         Currency("EUR", R.drawable.european_union, '\u20AC')
 )
 
-class Category(val label: String, @DrawableRes val icon: Int, val color: Int)
 val categories = arrayOf(
         Category("Not categorized", R.drawable.ic_no_category_24dp, rgb("9e9e9e")),
         Category("Food", R.drawable.ic_food_24dp, rgb("ff8f00")),
@@ -22,11 +23,6 @@ val categories = arrayOf(
 
 val accounts = arrayOf("Debit Card", "Cash")
 
-enum class RecordType {
-    EXPENSE,
-    INCOME
-}
-class Record(val accountId: Int, val type: RecordType, val amount: BigDecimal, val currencyId: Int, val categoryId: Int)
 val records = arrayOf(
         Record(0, RecordType.INCOME, BigDecimal(10), 1, 0),
         Record(0, RecordType.EXPENSE, BigDecimal(5), 1, 1),

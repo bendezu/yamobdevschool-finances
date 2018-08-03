@@ -3,7 +3,7 @@ package com.bendezu.yandexfinances.ui.addRecord
 import com.bendezu.yandexfinances.data.local.PreferencesHelper
 import com.bendezu.yandexfinances.data.model.Currency
 import com.bendezu.yandexfinances.data.model.RecordType
-import com.bendezu.yandexfinances.data.model.currencies
+import com.bendezu.yandexfinances.data.local.currencies
 import com.bendezu.yandexfinances.ui.base.BasePresenter
 import java.math.BigDecimal
 import java.math.RoundingMode

@@ -8,11 +8,15 @@ import com.bendezu.yandexfinances.ui.addRecord.AddRecordContract
 import com.bendezu.yandexfinances.ui.addRecord.AddRecordPresenter
 import com.bendezu.yandexfinances.ui.settings.SettingsContract
 import com.bendezu.yandexfinances.ui.settings.SettingsPresenter
+import com.bendezu.yandexfinances.util.adapter.RecordRecyclerViewAdapter
 import dagger.Module
 import dagger.Provides
 
 @Module
 class FragmentModule: MyModule {
+
+    @Provides
+    fun provideRecordsAdapter(): RecordRecyclerViewAdapter = RecordRecyclerViewAdapter()
 
     @Provides
     @FragmentScope

@@ -1,7 +1,6 @@
 package com.bendezu.yandexfinances.ui.addRecord
 
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.support.v4.content.ContextCompat.getColor
 import android.view.LayoutInflater
@@ -11,8 +10,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import com.bendezu.yandexfinances.App
 import com.bendezu.yandexfinances.R
-import com.bendezu.yandexfinances.data.model.categories
-import com.bendezu.yandexfinances.data.model.currencies
+import com.bendezu.yandexfinances.data.local.categories
+import com.bendezu.yandexfinances.data.local.currencies
 import com.bendezu.yandexfinances.injection.components.fragment.AddRecordFragmentComponent
 import com.bendezu.yandexfinances.ui.base.BaseFragment
 import com.bendezu.yandexfinances.util.RevealAnimationSetting
