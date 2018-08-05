@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.bendezu.yandexfinances.R
-import com.bendezu.yandexfinances.data.model.categories
+import com.bendezu.yandexfinances.data.local.categories
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
